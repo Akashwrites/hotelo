@@ -1,37 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotelo</title>
-</head>
-<body>
+<% layout('/layouts/boilerplate') -%>
 
-    <h2>Create New Listing</h2>
+<div class="row mt-3">
+    <div class="col-6 offset-3">
 
-    <form method="POST" action="/listings">
+        <h3>Listing Details</h3>
 
-        <input name="listing[title]" placeholder="enter title" type="text">
-        <br><br>
+        <div class="card listing-card">
 
-        <textarea name="listing[description]" placeholder="enter description"></textarea>
-        <br><br>
+            <img
+                src="<%= listing.image.url %>"
+                class="card-img-top show-img"
+                alt="listing image"
+            >
 
-        <input name="listing[image]" placeholder="enter image url/link" type="text">
-        <br><br>
+            <div class="card-body">
 
-        <input name="listing[price]" placeholder="enter price" type="number">
-        <br><br>
+                <p class="card-text">
+                    <b><%= listing.title %></b>
+                </p>
 
-        <input name="listing[location]" placeholder="enter location" type="text">
-        <br><br>
+                <p class="card-text">
+                    <%= listing.description %>
+                </p>
 
-        <input name="listing[country]" placeholder="enter country name" type="text">
-        <br><br>
+                <p class="card-text">
+                    &#8377; <%= listing.price.toLocaleString("en-IN") %>
+                </p>
 
-        <button>Add</button>
+                <p class="card-text">
+                    <%= listing.location %>
+                </p>
 
-    </form>
+                <p class="card-text">
+                    <%= listing.country %>
+                </p>
 
-</body>
-</html>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="d-flex gap-3">
+            <a
+                href="/listings/<%= listing._id %>/edit"
+                class="btn btn-danger"
+            >
+                Edit
+            </a>
+
+            <form
+                method="POST"
+                action="/listings/<%= listing._id %>?_method=DELETE"
+            >
+                <button class="btn btn-dark">
+                    Delete
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
